@@ -1,0 +1,28 @@
+<%- include("template/cabecera", {titleWeb: 'Pagina de mascotas'}) %>
+
+<div class="container mt-2">
+	<table class="table table-dark">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Tipo de mascota</th>
+				<th scope="col">Raza</th>
+				<th scope="col">Accion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if(arrayPets.length > 0 ) { %> <% arrayPets.forEach(el => {%>
+			<tr>
+				<td scope="row"><%= el.id %></td>
+				<td><%= el.name%></td>
+
+				<td><%= el.kindOfPet %></td>
+				<td><%= el.race %></td>
+			</tr>
+			<% })%> <% }%>
+		</tbody>
+	</table>
+</div>
+
+<%- include("template/pie") %>
