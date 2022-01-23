@@ -1,0 +1,100 @@
+<%- include("template/cabecera", {titleWeb: 'Detalle de mascota'}) %>
+
+<div class="container">
+	<h1>Detalle Mascota</h1>
+	<% if (error) { %>
+
+	<p><%= mensaje %></p>
+
+	<a href="/mascotas" class="btn btn-dark btn-block">Volver a Mascotas</a>
+
+	<% } %> <% if (!error) { %>
+
+	<form id="formEdit" data-id="<%= pet.id %>">
+		<input
+			type="text"
+			class="form-control my-2"
+			placeholder="Agregar nombre"
+			name="name"
+			value="<%= pet.name %>"
+			id="name"
+		/>
+		<input
+			type="text"
+			class="form-control my-2"
+			placeholder="Agregar tipo de mascota"
+			name="kindOfPet"
+			value="<%= pet.kindOfPet %>"
+			id="kindOfPet"
+		/>
+		<input
+			type="text"
+			class="form-control my-2"
+			placeholder="Agregar raza"
+			name="race"
+			value="<%= pet.race %>"
+			id="race"
+		/>
+		<button class="btn btn-warning mt-5" id="btnEdit">Editar</button>
+		<button class="btn btn-danger mt-5" id="btnDelete" data-id="<%= pet.id %>">
+			Eliminar
+		</button>
+	</form>
+
+	<% } %>
+</div>
+
+<%- include("template/pie") %>
+
+<script>
+	const btnDelete = document.querySelector('#btnDelete');
+
+	btnDelete.addEventListener('click', async () => {
+		const id = btnDelete.dataset.id;
+		console.log(id);
+		try {
+			const data = await fetch(`/mascotas/${id}`, {
+				method: 'delete',
+			});
+			const res = await data.json();
+			if (res.state) {
+				window.location.href = '/mascotas';
+			} else {
+				console.log(res);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
+	const formEdit = document.querySelector('#formEdit');
+
+	formEdit.addEventListener('submit', async e => {
+		e.preventDefault();
+
+		const name = document.querySelector('#name').value;
+		const kindOfPet = document.querySelector('#kindOfPet').value;
+		const race = document.querySelector('#race').value;
+
+		const id = formEdit.dataset.id;
+
+		try {
+			const data = await fetch(`/mascotas/${id}`, {
+				method: 'put',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ name, kindOfPet, race }),
+			});
+
+			const res = await data.json();
+			if (res.state) {
+				window.location.href = '/mascotas';
+			} else {
+				console.log(res);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	});
+</script>

@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@express-mongo-test.izrb4.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 mongoose
 	.connect(uri)
 	.then(_ => console.log('BD connect'))

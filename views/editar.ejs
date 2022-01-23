@@ -1,0 +1,35 @@
+<%- include("template/cabecera", {titleWeb: 'Editar mascota'}) %>
+
+<div class="container">
+	<h1>Editar</h1>
+	<% if(error) { %>
+	<p>
+		<%= message %>
+		<a href="/mascotas" class="btn btn-dark btn-block">Volver a mascotas</a>
+	</p>
+	<% } %>
+	<form action="/mascotas" method="POST">
+		<input
+			type="text"
+			class="form-control my-2"
+			placeholder="Agregar nombre"
+			name="name"
+			value=""
+		/>
+		<input
+			type="text"
+			class="form-control my-2"
+			placeholder="Agregar tipo de mascota"
+			name="typeOfPet"
+		/>
+		<input
+			type="text"
+			class="form-control my-2"
+			placeholder="Agregar raza"
+			name="race"
+		/>
+		<button type="submit" class="btn btn-success btn-block">Agregar</button>
+	</form>
+</div>
+
+<%- include("template/pie") %>

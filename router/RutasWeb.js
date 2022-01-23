@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/service', (req, res) => {
-	res.render('servicios', { titleService: 'Titulo servicio' });
+	res.render('servicios');
 });
 
 module.exports = router;
